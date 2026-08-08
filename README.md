@@ -99,3 +99,55 @@ Navigate to the backend folder:
 
 ```bash
 cd backend
+```
+
+Install backend dependencies:
+
+```bash
+npm install
+```
+
+Start the backend server:
+
+```bash
+node server.js
+```
+
+Backend API runs on:
+
+```text
+http://localhost:3000
+```
+## Frontend Setup
+
+Open another terminal in the project root.
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the Angular application:
+
+```bash
+ng serve
+```
+
+Open in browser:
+
+```text
+http://localhost:4200
+```
+## Application Flow
+
+1. Login as Student or Mentor.
+2. View the student learning dashboard.
+3. Track completed lessons, time spent, overall progress, and active courses.
+4. View course-wise progress and learning analytics.
+5. Check recent activities and personalized recommendations.
+6. Export progress data as CSV.
+
+## Author
+
+Poonam Misal
