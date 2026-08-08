@@ -1,0 +1,445 @@
+<div class="dashboard-layout">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+
+    <div>
+      <!-- Logo -->
+      <div class="brand">
+        <div class="brand-icon">🎓</div>
+        <span>LearnTrack</span>
+      </div>
+
+      <!-- Navigation -->
+      <nav>
+
+        <a
+          class="nav-item active"
+          (click)="scrollTo('dashboard')">
+          <span>▦</span>
+          Dashboard
+        </a>
+
+        <a
+          class="nav-item"
+          (click)="scrollTo('courses')">
+          <span>📚</span>
+          My Courses
+        </a>
+
+        <a
+          class="nav-item"
+          (click)="scrollTo('progress')">
+          <span>📈</span>
+          Progress
+        </a>
+
+        <a
+          class="nav-item"
+          (click)="scrollTo('activity')">
+          <span>◷</span>
+          Activity
+        </a>
+
+        <a
+          class="nav-item"
+          (click)="scrollTo('recommendations')">
+          <span>💡</span>
+          Recommendations
+        </a>
+
+      </nav>
+    </div>
+
+    <!-- Logout -->
+    <button
+      class="logout-btn"
+      (click)="logout()">
+      ↪ Logout
+    </button>
+
+  </aside>
+
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main
+    class="main-content"
+    id="dashboard">
+
+    <!-- ================= HEADER ================= -->
+    <header class="top-header">
+
+      <div>
+
+        <p class="welcome-label">
+          Welcome back
+        </p>
+
+        <h1>
+          {{ student.name }} 👋
+        </h1>
+
+        <p
+          class="subtitle"
+          *ngIf="role === 'student'">
+          Here's what's happening with your learning today.
+        </p>
+
+        <p
+          class="subtitle"
+          *ngIf="role === 'mentor'">
+          Monitor student learning progress and performance.
+        </p>
+
+      </div>
+
+
+      <!-- User Profile -->
+      <div class="user-profile">
+
+        <div class="avatar">
+          {{ student.name?.charAt(0) }}
+        </div>
+
+        <div>
+          <strong>
+            {{ student.name }}
+          </strong>
+
+          <span>
+            {{ role === 'mentor' ? 'Mentor' : 'Student' }}
+          </span>
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- ================= LEARNING OVERVIEW ================= -->
+    <section class="overview-header">
+
+      <div>
+        <h2>Learning Overview</h2>
+
+        <p>
+          Your learning performance at a glance
+        </p>
+      </div>
+
+
+      <button
+        class="export-btn"
+        (click)="exportToCSV()">
+        ↓ Export CSV
+      </button>
+
+    </section>
+
+
+    <!-- ================= STATS ================= -->
+    <section class="stats">
+
+      <!-- Completed Lessons -->
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ✓
+        </div>
+
+        <div>
+          <p>Completed Lessons</p>
+
+          <strong>
+            {{ student.completedLessons }}
+          </strong>
+
+          <small>
+            Lessons completed
+          </small>
+        </div>
+
+      </div>
+
+
+      <!-- Time Spent -->
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ◷
+        </div>
+
+        <div>
+          <p>Time Spent</p>
+
+          <strong>
+            {{ student.timeSpent }} hrs
+          </strong>
+
+          <small>
+            Total learning time
+          </small>
+        </div>
+
+      </div>
+
+
+      <!-- Overall Progress -->
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ↗
+        </div>
+
+        <div>
+          <p>Overall Progress</p>
+
+          <strong>
+            {{ student.overallProgress }}%
+          </strong>
+
+          <small>
+            Keep it going!
+          </small>
+        </div>
+
+      </div>
+
+
+      <!-- Active Courses -->
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ▤
+        </div>
+
+        <div>
+          <p>Active Courses</p>
+
+          <strong>
+            {{ student.activeCourses }}
+          </strong>
+
+          <small>
+            Currently learning
+          </small>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= COURSE SECTION ================= -->
+    <section class="content-grid">
+
+      <!-- Course Progress -->
+      <div
+        class="panel"
+        id="courses">
+
+        <div class="panel-heading">
+
+          <div>
+            <h3>Course Progress</h3>
+
+            <p>
+              Progress across your active courses
+            </p>
+          </div>
+
+        </div>
+
+
+        <div
+          class="course"
+          *ngFor="let course of courses">
+
+          <div class="course-title">
+
+            <span>
+              {{ course.name }}
+            </span>
+
+            <strong>
+              {{ course.progress }}%
+            </strong>
+
+          </div>
+
+
+          <div class="progress-bg">
+
+            <div
+              class="progress"
+              [style.width.%]="course.progress">
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Completion Status -->
+      <div class="panel">
+
+        <div class="panel-heading">
+
+          <div>
+            <h3>Completion Status</h3>
+
+            <p>
+              Your overall learning completion
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="chart-small">
+          <canvas id="progressChart"></canvas>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= LEARNING TREND ================= -->
+    <section
+      class="panel trend-panel"
+      id="progress">
+
+      <div class="panel-heading">
+
+        <div>
+          <h3>Learning Trend</h3>
+
+          <p>
+            Hours spent learning this week
+          </p>
+        </div>
+
+
+        <span class="week-badge">
+          This Week
+        </span>
+
+      </div>
+
+
+      <div class="trend-chart">
+        <canvas id="trendChart"></canvas>
+      </div>
+
+    </section>
+
+
+    <!-- ================= BOTTOM SECTION ================= -->
+    <section class="bottom-grid">
+
+
+      <!-- Recommendations -->
+      <div
+        class="panel"
+        id="recommendations">
+
+        <div class="panel-heading">
+
+          <div>
+            <h3>Recommended Next Steps</h3>
+
+            <p>
+              Personalized for your progress
+            </p>
+          </div>
+
+        </div>
+
+
+        <div
+          class="recommendation"
+          *ngFor="let recommendation of recommendations">
+
+          <div class="bulb">
+            💡
+          </div>
+
+          <span>
+            {{ recommendation }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- Recent Activity -->
+      <div
+        class="panel"
+        id="activity">
+
+        <div class="panel-heading">
+
+          <div>
+            <h3>Recent Activity</h3>
+
+            <p>
+              Your latest learning sessions
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Lesson</th>
+                <th>Course</th>
+                <th>Activity</th>
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <tr
+                *ngFor="let activity of activities">
+
+                <td>
+                  {{ activity.lesson }}
+                </td>
+
+                <td>
+                  {{ activity.course }}
+                </td>
+
+                <td>
+                  <span class="activity-time">
+                    {{ activity.time }}
+                  </span>
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

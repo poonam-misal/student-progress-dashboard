@@ -1,0 +1,53 @@
+<!-- <p>login works!</p> -->
+ <div class="login-page">
+  <div class="login-card">
+
+    <div class="logo">🎓</div>
+
+    <h1>Welcome Back</h1>
+    <p class="subtitle">
+      Sign in to continue your learning journey
+    </p>
+
+    <form (ngSubmit)="login()">
+
+      <label>Email Address</label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="student@example.com"
+        required
+      />
+
+      <label>Password</label>
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Enter your password"
+        required
+      />
+
+      <label>Login as</label>
+      <select name="role" [(ngModel)]="role">
+        <option value="student">Student</option>
+        <option value="mentor">Mentor</option>
+      </select>
+
+      <button type="submit">
+        Sign In
+      </button>
+
+      <p *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+      </p>
+
+    </form>
+
+    <p class="demo">
+      Demo: Enter any email and password
+    </p>
+
+  </div>
+</div>

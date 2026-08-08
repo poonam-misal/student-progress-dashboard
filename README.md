@@ -57,3 +57,45 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+---
+
+## Project Overview
+
+Student Progress Dashboard is a full-stack web application that tracks student learning progress, course completion, learning time, and recent activities.
+
+It also provides learning analytics and adaptive recommendations based on course progress.
+
+## Features
+
+- Email authentication with Student/Mentor role selection
+- Student progress dashboard
+- Completed lessons and learning time tracking
+- Course-wise progress
+- Overall progress analytics
+- Learning trend chart
+- Completion status chart
+- Recent learning activities
+- Adaptive learning recommendations
+- Responsive UI
+
+## Technology Stack
+
+### Frontend
+- Angular 21
+- TypeScript
+- HTML/CSS
+- Chart.js
+
+### Backend
+- Node.js
+- Express.js
+- REST APIs
+- CORS
+
+## Backend Setup
+
+Navigate to the backend folder:
+
+```bash
+cd backend
